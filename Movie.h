@@ -1,27 +1,27 @@
-#ifndef MOVIE_H
-#define MOVIE_H
+#pragma once
 #include <string>
-#include <iostream>
-using namespace std;
- 
+
 class Movie {
 private:
-    string title;
-    string genre;
-    string director;
-    int year;
-    double rating;   // 0.0 ~ 5.0
+    int         id;
+    std::string title;
+    std::string genre;
+    int         releaseYear;
+    double      totalRating;    // averageRating 제거
+    int         ratingCount;    // 추가
+
 public:
-    // 생성자
-    Movie(string t, string g, string d,
-          int y, double r);
-    // 정보 출력
-    void display();
-    // Getters
-    string getTitle();
-    double getRating();
-    int getYear();
-    // Setter (유효성 검사)
-    void setRating(double r);
+    Movie();                    // 기본 생성자 추가
+    Movie(int id, const std::string& title,
+          const std::string& genre, int year);
+
+    int         getId()              const;
+    std::string getTitle()           const;
+    std::string getGenre()           const;
+    int         getReleaseYear()     const;  // getYear → getReleaseYear
+    double      getAverageRating()   const;  // getRating → getAverageRating
+    int         getRatingCount()     const;  // 추가
+
+    void addRating(double r);               // 추가
+    void display()               const;
 };
-#endif

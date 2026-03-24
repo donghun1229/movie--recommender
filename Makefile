@@ -1,10 +1,19 @@
-CXX=g++
-CXXFLAGS=-std=c++17
-TARGET=movie
-SRCS=main.cpp Movie.cpp
+CXX      = g++
+CXXFLAGS = -std=c++17 -Wall -g
+TARGET   = movie_app
+OBJS     = main.o Movie.o
 
-$(TARGET):$(SRCS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS)
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
+main.o: main.cpp Movie.h
+	$(CXX) $(CXXFLAGS) -c $<
+
+movie.o: Movie.cpp Movie.h
+	$(CXX) $(CXXFLAGS) -c $<
+
+.PHONY: clean run
 clean:
-	rm -f $(TARGET)
+	rm -f $(OBJS) $(TARGET)
+run: $(TARGET)
+	./$(TARGET)
