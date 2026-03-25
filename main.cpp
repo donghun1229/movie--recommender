@@ -20,11 +20,11 @@ int main() {
     ratings.push_back(Rating(1, 2, 4.9));
     ratings.push_back(Rating(1, 2, 3.7));
 
-    for (int i=0; i<ratings.size(); i++) {
+    for (size_t i=0; i<ratings.size(); i++) {
         int movieid=ratings[i].getMovieId();
         double score=ratings[i].getScore();
     
-        for (int j=0; j<movies.size(); j++) {
+        for (size_t j=0; j<movies.size(); j++) {
             if (movies[j].getId()==movieid) {
                 movies[j].addRating(score);
             }
@@ -32,28 +32,28 @@ int main() {
     }
 
     std::cout << "===Movie Information ==="  << std::endl;
-    for (int i=0; i<movies.size(); i++) {
+    for (size_t i=0; i<movies.size(); i++) {
         movies[i].display();
     }
 
     std::cout << std::endl;
 
     std::cout << "===User Information ==="  << std::endl;
-    for (int i=0; i<users.size(); i++) {
+    for (size_t i=0; i<users.size(); i++) {
         users[i].display();
     }
 
     std::cout << std::endl;
 
     std::cout << "===Rating Information ==="  << std::endl;
-    for (int i=0; i<ratings.size(); i++) {
+    for (size_t i=0; i<ratings.size(); i++) {
         ratings[i].display();
     }
 
     std::cout << std::endl;
 
-    for (int i=0; i<movies.size(); i++) {
-        std::cout << movies[i].getTitle() << "평균 평점: "
+    for (size_t i=0; i<movies.size(); i++) {
+        std::cout << movies[i].getTitle() << " 평균 평점: "
                   << movies[i].getAverageRating() << std::endl;
     }
 
