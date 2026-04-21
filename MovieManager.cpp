@@ -1,18 +1,17 @@
-#pragma once
+#include "MovieManager.h"
 
-#include <vector>
-#include <string>
-#include "Movie.h"
+MovieManager::MovieManager() {
+}
 
-class MovieManager {
-private:
-    std::vector<Movie> movies;
+void MovieManager::addMovie(const Movie& movie) {
+}
 
-public:
-    MovieManager();
+Movie* MovieManager::findByTitle(const std::string& title) {
+    return nullptr;
+}
 
-    void addMovie(const Movie& movie);
-    Movie* findByTitle(const std::string& title);
-    void sortByRating();
-    void printAll() const;
-};
+void MovieManager::sortByRating() {
+}
+
+void MovieManager::printAll() const {
+}
