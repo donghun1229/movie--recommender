@@ -1,5 +1,6 @@
 #include "MovieManager.h"
 #include <algorithm>
+#include <iostream>
 
 MovieManager::MovieManager() {
 }
@@ -22,4 +23,12 @@ void MovieManager::sortByRating() {
 }
 
 void MovieManager::printAll() const {
+    if (movies.empty()) {
+        std::cout << "등록된 영화가 없습니다." << std::endl;
+        return;
+    }
+
+    for (int i=0; i<movies.size(); i++) {
+        movies[i].display();
+    }
 }
