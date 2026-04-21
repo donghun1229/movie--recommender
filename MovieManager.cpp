@@ -1,4 +1,5 @@
 #include "MovieManager.h"
+#include <algorithm>
 
 MovieManager::MovieManager() {
 }
@@ -17,6 +18,7 @@ Movie* MovieManager::findByTitle(const std::string& title) {
 }
 
 void MovieManager::sortByRating() {
+    std::sort(movies.begin(), movies.end());
 }
 
 void MovieManager::printAll() const {

@@ -24,4 +24,7 @@ public:
 
     void addRating(double r);               // 추가
     void display()               const;
+
+    Movie& operator=(const Movie& other);
+    bool operator<(const Movie& other) const;
 };

@@ -36,4 +36,9 @@ void Movie::display() const {           // 중복 제거 — 하나만 유지
               << "  평점: " << getAverageRating()
               << " (" << ratingCount << "건)"
               << std::endl;
+
+bool Movie::operator<(const Movie& other) const {
+    return getAverageRating() > other.getAverageRating();
+}
+
 }
