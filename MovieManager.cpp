@@ -4,6 +4,7 @@ MovieManager::MovieManager() {
 }
 
 void MovieManager::addMovie(const Movie& movie) {
+    movies.push_back(movie);
 }
 
 Movie* MovieManager::findByTitle(const std::string& title) {
