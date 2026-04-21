@@ -8,6 +8,11 @@ void MovieManager::addMovie(const Movie& movie) {
 }
 
 Movie* MovieManager::findByTitle(const std::string& title) {
+    for (int i=0; i<movies.size(); i++) {
+        if (movies[i].getTitle() == title) {
+            return &movies[i];
+        }
+    }
     return nullptr;
 }
 
