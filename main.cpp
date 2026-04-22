@@ -1,60 +1,156 @@
+#include <iostream>
+#include <string>
+
 #include "Movie.h"
 #include "User.h"
-#include "Rating.h"
-#include <iostream>
-#include <vector>
+#include "MovieManager.h"
+#include "UserManager.h"
+#include "RatingManager.h"
 
 int main() {
-    std::vector<Movie> movies;
-    std::vector<User> users;
-    std::vector<Rating> ratings;
+    MovieManager movieManager;
+    UserManager userManager;
+    RatingManager ratingManager;
 
-    movies.push_back(Movie(1, "기생충", "드라마", 2019));
-    movies.push_back(Movie(2, "인터스텔라", "SF", 2014));
+    int nextMovieId = 1;
+    int nextUserId = 1;
 
-    users.push_back(User(1, "강동헌", "greatkdh107@gmail.com"));
-    users.push_back(User(2, "이동헌", "greatldh107@gmail.com"));
+    int choice;
 
-    ratings.push_back(Rating(1, 1, 4.8));
-    ratings.push_back(Rating(2, 1, 5.0));
-    ratings.push_back(Rating(1, 2, 4.9));
-    ratings.push_back(Rating(1, 2, 3.7));
+    while (true) {
+        std::cout << "\n===== Movie Recommender =====" << std::endl;
+        std::cout << "1. 영화 추가" << std::endl;
+        std::cout << "2. 영화 검색" << std::endl;
+        std::cout << "3. 영화 전체 출력" << std::endl;
+        std::cout << "4. 평점순 정렬" << std::endl;
+        std::cout << "5. 사용자 추가" << std::endl;
+        std::cout << "6. 사용자 전체 출력" << std::endl;
+        std::cout << "7. 평점 입력" << std::endl;
+        std::cout << "8. 영화별 평점 조회" << std::endl;
+        std::cout << "0. 종료" << std::endl;
+        std::cout << "선택: ";
 
-    for (size_t i=0; i<ratings.size(); i++) {
-        int movieid=ratings[i].getMovieId();
-        double score=ratings[i].getScore();
-    
-        for (size_t j=0; j<movies.size(); j++) {
-            if (movies[j].getId()==movieid) {
-                movies[j].addRating(score);
+        std::cin >> choice;
+        std::cin.ignore();
+
+        if (choice == 0) {
+            std::cout << "프로그램을 종료합니다." << std::endl;
+            break;
+        }
+
+        else if (choice == 1) {
+            std::string title;
+            std::string genre;
+            int year;
+
+            std::cout << "영화 제목: ";
+            std::getline(std::cin, title);
+
+            std::cout << "장르: ";
+            std::getline(std::cin, genre);
+
+            std::cout << "개봉 연도: ";
+            std::cin >> year;
+            std::cin.ignore();
+
+            Movie movie(nextMovieId, title, genre, year);
+            movieManager.addMovie(movie);
+            nextMovieId++;
+
+            std::cout << "영화가 추가되었습니다." << std::endl;
+        }
+
+        else if (choice == 2) {
+            std::string title;
+
+            std::cout << "검색할 영화 제목: ";
+            std::getline(std::cin, title);
+
+            Movie* movie = movieManager.findByTitle(title);
+
+            if (movie == nullptr) {
+                std::cout << "영화를 찾을 수 없습니다." << std::endl;
+            }
+            else {
+                movie->display();
             }
         }
-    }
 
-    std::cout << "===Movie Information ==="  << std::endl;
-    for (size_t i=0; i<movies.size(); i++) {
-        movies[i].display();
-    }
+        else if (choice == 3) {
+            movieManager.printAll();
+        }
 
-    std::cout << std::endl;
+        else if (choice == 4) {
+            movieManager.sortByRating();
+            std::cout << "평점순으로 정렬했습니다." << std::endl;
+            movieManager.printAll();
+        }
 
-    std::cout << "===User Information ==="  << std::endl;
-    for (size_t i=0; i<users.size(); i++) {
-        users[i].display();
-    }
+        else if (choice == 5) {
+            std::string name;
 
-    std::cout << std::endl;
+            std::cout << "사용자 이름: ";
+            std::getline(std::cin, name);
 
-    std::cout << "===Rating Information ==="  << std::endl;
-    for (size_t i=0; i<ratings.size(); i++) {
-        ratings[i].display();
-    }
+            User user(nextUserId, name);
+            userManager.addUser(user);
+            nextUserId++;
 
-    std::cout << std::endl;
+            std::cout << "사용자가 추가되었습니다." << std::endl;
+        }
 
-    for (size_t i=0; i<movies.size(); i++) {
-        std::cout << movies[i].getTitle() << " 평균 평점: "
-                  << movies[i].getAverageRating() << std::endl;
+        else if (choice == 6) {
+            userManager.printAll();
+        }
+
+        else if (choice == 7) {
+            std::string userName;
+            std::string movieTitle;
+            double score;
+
+            std::cout << "사용자 이름: ";
+            std::getline(std::cin, userName);
+
+            std::cout << "영화 제목: ";
+            std::getline(std::cin, movieTitle);
+
+            std::cout << "평점 입력(0~5): ";
+            std::cin >> score;
+            std::cin.ignore();
+
+            User* user = userManager.findByName(userName);
+            Movie* movie = movieManager.findByTitle(movieTitle);
+
+            if (user == nullptr) {
+                std::cout << "사용자를 찾을 수 없습니다." << std::endl;
+            }
+            else if (movie == nullptr) {
+                std::cout << "영화를 찾을 수 없습니다." << std::endl;
+            }
+            else {
+                ratingManager.addRating(*user, *movie, score);
+            }
+        }
+
+        else if (choice == 8) {
+            std::string movieTitle;
+
+            std::cout << "평점을 조회할 영화 제목: ";
+            std::getline(std::cin, movieTitle);
+
+            Movie* movie = movieManager.findByTitle(movieTitle);
+
+            if (movie == nullptr) {
+                std::cout << "영화를 찾을 수 없습니다." << std::endl;
+            }
+            else {
+                ratingManager.printRatingsByMovie(*movie);
+            }
+        }
+
+        else {
+            std::cout << "잘못된 메뉴 번호입니다." << std::endl;
+        }
     }
 
     return 0;
