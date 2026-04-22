@@ -9,7 +9,7 @@ void UserManager::addUser(const User& user) {
 }
 
 User* UserManager::findByName(const std::string& name) {
-    for (int i = 0; i < users.size(); i++) {
+    for (size_t i = 0; i < users.size(); i++) {
         if (users[i].getName() == name) {
             return &users[i];
         }
@@ -24,7 +24,7 @@ void UserManager::printAll() const {
         return;
     }
 
-    for (int i = 0; i < users.size(); i++) {
+    for (size_t i = 0; i < users.size(); i++) {
         users[i].display();
     }
 }

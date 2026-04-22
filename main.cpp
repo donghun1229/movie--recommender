@@ -88,11 +88,15 @@ int main() {
 
         else if (choice == 5) {
             std::string name;
+            std::string email;
 
             std::cout << "사용자 이름: ";
             std::getline(std::cin, name);
 
-            User user(nextUserId, name);
+            std::cout << "이메일: ";
+            std::getline(std::cin, email);
+
+            User user(nextUserId, name, email);
             userManager.addUser(user);
             nextUserId++;
 

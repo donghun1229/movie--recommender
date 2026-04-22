@@ -23,7 +23,7 @@ void RatingManager::printRatingsByMovie(const Movie& movie) const {
 
     std::cout << "[" << movie.getTitle() << " 평점 목록]" << std::endl;
 
-    for (int i = 0; i < ratings.size(); i++) {
+    for (size_t i = 0; i < ratings.size(); i++) {
         if (ratings[i].getMovieId() == movie.getId()) {
             std::cout << "평점: " << ratings[i].getScore() << std::endl;
             found = true;
