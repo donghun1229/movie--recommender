@@ -42,6 +42,10 @@ bool Movie::operator<(const Movie& other) const {
     return getAverageRating() > other.getAverageRating();
 }
 
+bool Movie::operator==(const Movie& other) const {
+    return title == other.title;
+}
+
 Movie& Movie::operator=(const Movie& other) {
     if (this != &other) {
         id = other.id;
@@ -53,4 +57,14 @@ Movie& Movie::operator=(const Movie& other) {
     }
 
     return *this;
+}
+
+std::ostream& operator<<(std::ostream& os, const Movie& movie) {
+    os << movie.getId() << ". "
+       << movie.getTitle()
+       << " (" << movie.getReleaseYear() << ")"
+       << " 평점: " << movie.getAverageRating()
+       << " (" << movie.getRatingCount() << "건)";
+
+    return os;
 }

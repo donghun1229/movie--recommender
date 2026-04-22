@@ -6,6 +6,12 @@ MovieManager::MovieManager() {
 }
 
 void MovieManager::addMovie(const Movie& movie) {
+    for (size_t i=0; i<movies.size(); i++) {
+        if (movies[i] == movie) {
+            std::cout << "이미 등록된 영화입니다." << std::endl;
+            return;
+        }
+    }
     movies.push_back(movie);
 }
 
@@ -29,6 +35,6 @@ void MovieManager::printAll() const {
     }
 
     for (size_t i=0; i<movies.size(); i++) {
-        movies[i].display();
+        std::cout << movies[i] << std::endl;
     }
 }

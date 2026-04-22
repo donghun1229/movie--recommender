@@ -1,4 +1,5 @@
 #pragma once
+#include <ostream>
 #include <string>
 
 class Movie {
@@ -27,4 +28,7 @@ public:
 
     Movie& operator=(const Movie& other);
     bool operator<(const Movie& other) const;
+    bool operator==(const Movie& other) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Movie& movie);
